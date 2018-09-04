@@ -1,7 +1,7 @@
 <template>
 <div class="wrapper" >
-  <swiper :options="swiperOption">
-    <swiper-slide v-for="swiper of swiperList" :key="swiper.id" >
+  <swiper :options="swiperOption" v-if="showSwiper" >
+    <swiper-slide v-for="swiper of this.swiperList" :key="swiper.id" >
         <img class="swiper-img" :src='swiper.imgUrl' />
     </swiper-slide>
     <div class="swiper-pagination"  slot="pagination"></div>
@@ -12,6 +12,9 @@
 <script>
 export default {
   name: "HomeSwiper",
+  props: {
+    swiperList: Array
+  },
   data() {
     return {
       swiperOption: {
@@ -21,43 +24,31 @@ export default {
         },
         // autoplay: true,
         loop: true
-      },
-      swiperList: [
-        {
-          id: "0001",
-          imgUrl:
-            "https://img1.qunarzz.com/vc/99/c1/c4/3426c6a3b54ef464e40e440fe3.jpg"
-        },
-        {
-          id: "0002",
-          imgUrl:
-            "https://img1.qunarzz.com/vc/c0/89/67/ca6ecf79b44e11a62b0a148d38.jpg"
-        },
-        {
-          id: "0003",
-          imgUrl:
-            "https://img1.qunarzz.com/vc/c5/03/2a/586ea032b20fe02502e52abc78.jpg"
-        }
-      ]
+      }
     };
+  },
+  computed: {
+    showSwiper() {
+      return this.swiperList.length > 0;
+    }
   }
 };
 </script>
 
 <style lang="stylus" scoped>
 .wrapper>>>.swiper-pagination-bullet-active {
-    background: #fff !important;
+  background: #fff !important;
 }
 
 .wrapper {
-    width: 100%;
-    height: 0;
-    overflow: hidden;
-    padding-bottom: 30.25%;
-    background: #eee;
+  width: 100%;
+  height: 0;
+  overflow: hidden;
+  padding-bottom: 30.25%;
+  background: #eee;
 
-    .swiper-img {
-        width: 100%;
-    }
+  .swiper-img {
+    width: 100%;
+  }
 }
 </style>
