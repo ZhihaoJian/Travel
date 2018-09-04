@@ -1,6 +1,6 @@
 <template>
 <div class="wrapper" >
-<swiper :options="swiperOption">
+  <swiper :options="swiperOption">
     <swiper-slide v-for="swiper of swiperList" :key="swiper.id" >
         <img class="swiper-img" :src='swiper.imgUrl' />
     </swiper-slide>
@@ -19,7 +19,7 @@ export default {
           el: ".swiper-pagination",
           type: "bullets"
         },
-        autoplay: true,
+        // autoplay: true,
         loop: true
       },
       swiperList: [
