@@ -7,13 +7,16 @@
                 <div class='banner-number' ><span class='iconfont banner-icon'>&#xe692; </span>{{this.gallaryImgs.length}}</div>
             </div>
         </div>
-        <Gallary @close='handleGrallaryClose' :imgs="this.gallaryImgs" v-show="showGrallary" />
+        <FadeAnimation>
+            <Gallary @close='handleGrallaryClose' :imgs="this.gallaryImgs" v-show="showGrallary" />
+        </FadeAnimation>
     </div>
 </template>
 
 <script>
 
     import Gallary from '../../../common/Gallary/Gallary';
+    import FadeAnimation from '../../../common/FadeAnimation/FadeAnimation';
 
     export default {
         name:'DetailBanner',
@@ -28,7 +31,8 @@
             }
         },
         components:{
-            Gallary
+            Gallary,
+            FadeAnimation
         },
         methods:{
             handleBannerClick(){
