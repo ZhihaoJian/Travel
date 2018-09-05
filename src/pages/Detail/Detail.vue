@@ -1,6 +1,10 @@
 <template>
     <div>
-        <detail-banner/>
+        <detail-banner 
+            :sightName="sightName" 
+            :bannerImg="bannerImg" 
+            :gallaryImgs="gallaryImgs" 
+        />
         <detail-header/>
         <div class='content'>
             <detail-list :list="list" />
@@ -9,6 +13,7 @@
 </template>
 
 <script>
+    import axios from 'axios';
     import DetailBanner from './components/Banner';
     import DetailHeader from './components/Header';
     import DetailList from './components/List';
@@ -22,31 +27,30 @@
         },
         data(){
             return {
-                list:[
-                {
-                    title:'成人票',
-                    children:[
-                        {
-                            title:'成人三馆联票',
-                            children:[{
-                                title:'成人三馆联票 - 去哪儿网'
-                            }]
-                        },
-                        {
-                            title:'成人五馆联票'
-                        }
-                    ]
-                },
-                {
-                    title:'学生票'
-                },
-                {
-                    title:'儿童票'
-                },
-                {
-                    title:'特惠票'
-                }]
+                sightName:"",
+                bannerImg:'',
+                gallaryImgs:[],
+                list:[]
             }
+        },
+        methods:{
+            getDetailInfo(){
+                const id = this.$route.params.id;
+                axios.get(`http://localhost:3000/detail?id=${id}`).then(this.getDetailInfoSucc)
+            },
+            getDetailInfoSucc(res){
+                const data = res.data;
+                if(data){
+                    const { sightName, bannerImg, gallaryImgs, categoryList } = data;
+                    this.sightName = sightName;
+                    this.bannerImg = bannerImg;
+                    this.gallaryImgs = gallaryImgs;
+                    this.list = categoryList;
+                }
+            }
+        },
+        mounted() {
+            this.getDetailInfo();
         }
     }
 </script>
